@@ -1,0 +1,54 @@
+From b121bed0655b5b9c97c34081772b57a7d46a91a6 Mon Sep 17 00:00:00 2001
+From: Abhishek <abhishekkmr2000@gmail.com>
+Date: Mon, 8 Jun 2020 21:30:45 +0530
+Subject: [PATCH] Create Patch File Task 3
+
+---
+ src/DataManipulator.ts | 3 ++-
+ src/Graph.tsx          | 3 +++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/DataManipulator.ts b/src/DataManipulator.ts
+index 5581b46..c976e2e 100644
+--- a/src/DataManipulator.ts
++++ b/src/DataManipulator.ts
+@@ -1,5 +1,6 @@
+ import { ServerRespond } from './DataStreamer';
+ 
++// Structure of return object of the function
+ export interface Row {
+   price_abc: number,
+   price_def: number,
+@@ -10,7 +11,7 @@ export interface Row {
+   trigger_alert:number | undefined,
+ }
+ 
+-
++// Returning Row object to Graph component after manipulating input input data
+ export class DataManipulator {
+   static generateRow(serverRespond: ServerRespond[]): Row {
+     const priceABC = (serverRespond[0].top_ask.price + serverRespond[0].top_bid.price) / 2;
+diff --git a/src/Graph.tsx b/src/Graph.tsx
+index b19f92c..5bd4056 100644
+--- a/src/Graph.tsx
++++ b/src/Graph.tsx
+@@ -22,6 +22,7 @@ class Graph extends Component<IProps, {}> {
+     // Get element from the DOM.
+     const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+ 
++    // Update Schema for new ratio graph
+     const schema = {
+       price_abc: 'float',
+       price_def: 'float',
+@@ -37,6 +38,8 @@ class Graph extends Component<IProps, {}> {
+     }
+     if (this.table) {
+       // Load the `table` in the `<perspective-viewer>` DOM reference.
++
++      // Configuring graph attributes for modifying / adding new elements
+       elem.load(this.table);
+       elem.setAttribute('view', 'y_line');
+       elem.setAttribute('row-pivots', '["timestamp"]');
+-- 
+2.25.1
+
